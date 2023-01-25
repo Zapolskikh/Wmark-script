@@ -1,8 +1,5 @@
-from uuid import uuid4
-
-
-def wmarkvcxproj_script(wmarkvcxproj_path: str, original_project, dist_project_name):
-    uuid4key = str(uuid4())
+def wmarkvcxproj_script(wmarkvcxproj_path: str, original_project, dist_project_name, uuid4key):
+    
     with open(wmarkvcxproj_path, 'r') as txt_file:
         a = txt_file.readlines()
         index_include = None
@@ -31,8 +28,6 @@ def wmarkvcxproj_script(wmarkvcxproj_path: str, original_project, dist_project_n
     with open(wmarkvcxproj_path, 'w') as txt_file:
         txt_file.writelines(a)
 
-    with open('uuid_key', 'w') as txt_uuid:
-        txt_uuid.writelines(uuid4key)
 
 
 # wmarkvcxproj_script('D:\\mark\\WMark.vcxproj', "LFI174", "LFI176")

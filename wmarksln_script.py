@@ -1,10 +1,8 @@
-def wmarksln_script(wmarksln_path, original_project, dist_project):
+def wmarksln_script(wmarksln_path, original_project, dist_project, uuid4key):
 
     with open(wmarksln_path, 'r') as txt_file:
         a = txt_file.readlines()
 
-    with open('uuid_key', 'r') as txt_file:
-        uuid4key = txt_file.readlines()
         index_include = None
         index_ref = None
 
