@@ -1,5 +1,4 @@
 from pathlib import Path
-
 from create_new_folder_project import create_new_folder_project
 from wmarksln_script import wmarksln_script
 from resourceh_script import resourceh_script
@@ -8,9 +7,7 @@ from wmarkvcxproj_script import wmarkvcxproj_script
 from cplcdevice_script import cplcdevice_script
 from ctabplcviewclasslist import ctabplcviewclasslist_script
 
-
-repository_path = 'C:\\medicomtfs2018\\WMark2020\\WMark2020LFI174'
-
+repository_path = 'D:\\medicomtfs2018\\WMark2020\\WMark2020LFI174'
 
 def run(old_proj_name, new_proj_name, repository_path):
     # NEW PROJECT CREATE

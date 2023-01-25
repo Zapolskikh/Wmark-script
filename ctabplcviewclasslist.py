@@ -1,6 +1,5 @@
-repository_path = 'C:\\medicomtfs2018\\WMark2020\\WMark2020LFI174'
-
-
+from resources.ignore_case import ignore_case
+repository_path = 'D:\\medicomtfs2018\\WMark2020\\WMark2020LFI174'
 def ctabplcviewclasslist_script(cplcdevice_path, original_project, dist_project):
 
     with open(cplcdevice_path, 'r') as txt_file:
@@ -23,21 +22,27 @@ def ctabplcviewclasslist_script(cplcdevice_path, original_project, dist_project)
     block_include2 = a[index_include2:index_include2+1]
     block_ref = a[index_ref:index_ref+1]
 
-    print(block_include1)
-    print(block_include2)
-    print(block_ref)
-
-    block_include1 = [x.replace(original_project, dist_project)
+    block_include1_lfiname = ignore_case(original_project, block_include1)
+    block_include2_lfiname = ignore_case(original_project, block_include2)
+    block_include1 = [x.replace(block_include1_lfiname[0], dist_project)
                       for x in block_include1]
-    block_include2 = [x.replace(original_project, dist_project)
+    block_include1 = [x.replace(block_include1_lfiname[1], dist_project)
+                      for x in block_include1]
+
+    block_include2 = [x.replace(block_include2_lfiname[0], dist_project)
                       for x in block_include2]
+    block_include2 = [x.replace(block_include2_lfiname[1], dist_project)
+                      for x in block_include2]         
     block_ref = [x.replace('"NONE",					"No PLC",				nullptr,								RUNTIME_CLASS(CWMarkPlc),			""',
                            f'"PLC {dist_project}", "PLC {dist_project}", RUNTIME_CLASS(CWMarkTabPlc{dist_project}), RUNTIME_CLASS(CWMarkPlc{dist_project}),	"PLC {dist_project}"')
                  for x in block_ref]
 
     a.insert(index_include1+1, "".join(block_include1))
-    a.insert(index_include2+1, "".join(block_include2))
+    a.insert(index_include2+2, "".join(block_include2))
     a.insert(index_ref_insert+1, "".join(block_ref))
 
     with open(cplcdevice_path, 'w') as txt_file:
         txt_file.writelines(a)
+
+# ctabplcviewclasslist_script(
+#     f"{repository_path}\\WMarkPlc\\CTabPlcViewClassList.cpp", 'LFI174', 'LFI176')
