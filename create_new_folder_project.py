@@ -5,7 +5,7 @@ import os
 
 def create_new_folder_project(source_folder_path, new_folder_name):
     try:
-        project_dir = source_folder_path.parents[-2] / new_folder_name
+        project_dir = source_folder_path.parent / new_folder_name
         shutil.copytree(source_folder_path, project_dir)
         all_files = list(project_dir.rglob("*.*"))
         for x in all_files:
