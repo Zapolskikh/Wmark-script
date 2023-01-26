@@ -7,6 +7,7 @@ from wmarkrc_script import wmarkrc_script
 from wmarkvcxproj_script import wmarkvcxproj_script
 from cplcdevice_script import cplcdevice_script
 from ctabplcviewclasslist import ctabplcviewclasslist_script
+from wmarkplclfixxxvcxproj_script import wmarkplclfixxxvcxproj_script
 
 # repository_path = 'C:\\medicomtfs2018\\WMark2020\\WMark2020LFI174'
 
@@ -32,6 +33,11 @@ def run(old_proj_name, new_proj_name, repository_path):
         f"{repository_path}\\WMarkPlc\\CPlcDevice.h", old_proj_name, new_proj_name)
     ctabplcviewclasslist_script(
         f"{repository_path}\\WMarkPlc\\CTabPlcViewClassList.cpp", old_proj_name, new_proj_name)
+    # WMarlPLCLfiXXXProj
+    wmarkplclfixxxvcxproj_script(
+        f'{repository_path}\\WMarkPlc{new_proj_name}\\WMarkPlc{new_proj_name}.vcxproj', uuid4key)
 
 
 # run("LFI174", "LFI176", repository_path)
+# wmarkplclfixxxvcxproj_script(
+#     'C:\\medicomtfs2018\\WMark2020\\mark\\WMarkPlcLFI176\\WMarkPlcLFI176.vcxproj', uuid4key)
