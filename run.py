@@ -10,12 +10,13 @@ from ctabplcviewclasslist import ctabplcviewclasslist_script
 
 # repository_path = 'C:\\medicomtfs2018\\WMark2020\\WMark2020LFI174'
 
+
 def run(old_proj_name, new_proj_name, repository_path):
-    #Create uuid4key
+    # Create uuid4key
     uuid4key = str(uuid4())
     # NEW PROJECT CREATE
     create_new_folder_project(
-        Path(f"{repository_path}\\WmarkPlc{old_proj_name}"), f"WMarkPlc{new_proj_name}",old_proj_name, new_proj_name)
+        Path(f"{repository_path}\\WmarkPlc{old_proj_name}"), f"WMarkPlc{new_proj_name}", old_proj_name, new_proj_name)
     # HMI
     wmarkrc_script(f"{repository_path}\\WMark.rc",
                    old_proj_name, new_proj_name)
