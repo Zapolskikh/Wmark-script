@@ -1,7 +1,9 @@
 from resources.ignore_case import ignore_case
-repository_path = 'D:\\medicomtfs2018\\WMark2020\\WMark2020LFI174'
-def ctabplcviewclasslist_script(cplcdevice_path, original_project, dist_project):
+from tkinter import INSERT
+from datetime import datetime
 
+def ctabplcviewclasslist_script(cplcdevice_path, original_project, dist_project,text_log):
+    text_log.insert(INSERT,f'[{datetime.now()}] Modify CTabPlcViewClassList.cpp\n')
     with open(cplcdevice_path, 'r') as txt_file:
         a = txt_file.readlines()
     index_include1 = None
@@ -43,6 +45,3 @@ def ctabplcviewclasslist_script(cplcdevice_path, original_project, dist_project)
 
     with open(cplcdevice_path, 'w') as txt_file:
         txt_file.writelines(a)
-
-# ctabplcviewclasslist_script(
-#     f"{repository_path}\\WMarkPlc\\CTabPlcViewClassList.cpp", 'LFI174', 'LFI176')

@@ -1,4 +1,9 @@
-def wmarksln_script(wmarksln_path, original_project, dist_project, uuid4key):
+from tkinter import INSERT
+from datetime import datetime
+
+def wmarksln_script(wmarksln_path, original_project, dist_project, uuid4key,text_log):
+
+    text_log.insert(INSERT,f'[{datetime.now()}] Modify WMark.sln (add {dist_project} uuid4key)\n')
 
     with open(wmarksln_path, 'r') as txt_file:
         a = txt_file.readlines()
@@ -29,5 +34,3 @@ def wmarksln_script(wmarksln_path, original_project, dist_project, uuid4key):
     with open(wmarksln_path, 'w') as txt_file:
         txt_file.writelines(a)
 
-
-# wmarksln_script('D:\\mark\\WMark.sln', "LFI174", "LFI176")

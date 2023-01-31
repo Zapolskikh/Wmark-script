@@ -1,3 +1,5 @@
+from tkinter import INSERT
+from datetime import datetime
 def max_value(resourceh_path):
     max_range = (0, 30000)
     values = []
@@ -25,8 +27,8 @@ def index_last_comment(resourceh_path):
                 index = i
     return index
 
-
-def resourceh_script(resourceh_path, source: str, destination: str):
+def resourceh_script(resourceh_path, source: str, destination: str,text_log):
+    text_log.insert(INSERT,f'[{datetime.now()}] Modify resource.h (HMI References)\n')
     with open(resourceh_path, 'r') as txt_file:
         a = txt_file.readlines()
 
@@ -51,6 +53,3 @@ def resourceh_script(resourceh_path, source: str, destination: str):
 
     with open(resourceh_path, 'w') as txt_file:
         txt_file.writelines(a)
-
-
-# resourceh_script('D:\\mark\\resource.h', 'LFI174', 'LFI176')
