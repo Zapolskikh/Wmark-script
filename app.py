@@ -1,5 +1,16 @@
 import tkinter as tk
-from run import run
+from pathlib import Path
+from uuid import uuid4
+from utils.create_new_folder_project import create_new_folder_project
+from utils.wmarksln_script import wmarksln_script
+from utils.resourceh_script import resourceh_script
+from utils.wmarkrc_script import wmarkrc_script
+from utils.wmarkvcxproj_script import wmarkvcxproj_script
+from utils.cplcdevice_script import cplcdevice_script
+from utils.ctabplcviewclasslist import ctabplcviewclasslist_script
+from utils.wmarkplclfixxxvcxproj_script import wmarkplclfixxxvcxproj_script
+from tkinter import INSERT
+from datetime import datetime
 
 class MainWindow(tk.Tk):
     def __init__(self, *args, **kwargs) -> None:
@@ -50,7 +61,38 @@ class MainWindow(tk.Tk):
         else:
             self.repository_path = 'D:\\medicomtfs2018\\WMark2020\\WMark2020Dev'
 
-        run(self.entry_temp.get(), self.entry_dist.get(), self.repository_path,self.text_log)
+        self.run(self.entry_temp.get(), self.entry_dist.get(), self.repository_path,self.text_log)
 
-main_window = MainWindow()
-main_window.mainloop()
+
+    def run(self, old_proj_name, new_proj_name, repository_path, text_log):
+        # Create uuid4key
+        uuid4key = str(uuid4())
+        # NEW PROJECT CREATE
+        try:
+            create_new_folder_project(
+                Path(f"{repository_path}\\WmarkPlc{old_proj_name}"), f"WMarkPlc{new_proj_name}", old_proj_name, new_proj_name,text_log)
+            # HMI
+            wmarkrc_script(f"{repository_path}\\WMark.rc",
+                        old_proj_name, new_proj_name,text_log)
+            resourceh_script(f"{repository_path}\\resource.h",
+                            old_proj_name, new_proj_name,text_log)
+            # WAMRK REFERENCES
+            wmarkvcxproj_script(f"{repository_path}\\WMark.vcxproj",
+                                old_proj_name, new_proj_name, uuid4key,text_log)
+            wmarksln_script(f"{repository_path}\\WMark.sln",
+                            old_proj_name, new_proj_name, uuid4key,text_log)
+            # WmarkPLC
+            cplcdevice_script(
+                f"{repository_path}\\WMarkPlc\\CPlcDevice.h", old_proj_name, new_proj_name,text_log)
+            ctabplcviewclasslist_script(
+                f"{repository_path}\\WMarkPlc\\CTabPlcViewClassList.cpp", old_proj_name, new_proj_name,text_log)
+            # WMarlPLCLfiXXXProj
+            wmarkplclfixxxvcxproj_script(
+                f'{repository_path}\\WMarkPlc{new_proj_name}\\WMarkPlc{new_proj_name}.vcxproj', new_proj_name, uuid4key, text_log)
+        except Exception as e:
+            text_log.insert(INSERT,f'[{datetime.now()}] {e}\n')
+            return
+
+if __name__== "__main__":
+    main_window = MainWindow()
+    main_window.mainloop()
