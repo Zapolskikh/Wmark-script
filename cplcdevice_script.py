@@ -1,5 +1,8 @@
-def cplcdevice_script(cplcdevice_path, original_project, dist_project):
+from tkinter import INSERT
+from datetime import datetime
 
+def cplcdevice_script(cplcdevice_path, original_project, dist_project, text_log):
+    text_log.insert(INSERT,f'[{datetime.now()}] Modify CPlcDevice.h\n')
     with open(cplcdevice_path, 'r') as txt_file:
         a = txt_file.readlines()
     index_include = None

@@ -1,4 +1,8 @@
-def wmarkvcxproj_script(wmarkvcxproj_path: str, original_project, dist_project_name, uuid4key):
+from tkinter import INSERT
+from datetime import datetime
+
+def wmarkvcxproj_script(wmarkvcxproj_path: str, original_project, dist_project_name, uuid4key, text_log):
+    text_log.insert(INSERT,f'[{datetime.now()}] Modify WMark.vcxproj (add {dist_project_name} uuid4key)\n')
     
     with open(wmarkvcxproj_path, 'r') as txt_file:
         a = txt_file.readlines()
@@ -27,7 +31,3 @@ def wmarkvcxproj_script(wmarkvcxproj_path: str, original_project, dist_project_n
 
     with open(wmarkvcxproj_path, 'w') as txt_file:
         txt_file.writelines(a)
-
-
-
-# wmarkvcxproj_script('D:\\mark\\WMark.vcxproj', "LFI174", "LFI176")

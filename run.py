@@ -8,36 +8,34 @@ from wmarkvcxproj_script import wmarkvcxproj_script
 from cplcdevice_script import cplcdevice_script
 from ctabplcviewclasslist import ctabplcviewclasslist_script
 from wmarkplclfixxxvcxproj_script import wmarkplclfixxxvcxproj_script
+from tkinter import INSERT
+from datetime import datetime
 
-# repository_path = 'C:\\medicomtfs2018\\WMark2020\\WMark2020LFI174'
-
-
-def run(old_proj_name, new_proj_name, repository_path):
+def run(old_proj_name, new_proj_name, repository_path, text_log):
     # Create uuid4key
     uuid4key = str(uuid4())
     # NEW PROJECT CREATE
-    create_new_folder_project(
-        Path(f"{repository_path}\\WmarkPlc{old_proj_name}"), f"WMarkPlc{new_proj_name}", old_proj_name, new_proj_name)
-    # HMI
-    wmarkrc_script(f"{repository_path}\\WMark.rc",
-                   old_proj_name, new_proj_name)
-    resourceh_script(f"{repository_path}\\resource.h",
-                     old_proj_name, new_proj_name)
-    # WAMRK REFERENCES
-    wmarkvcxproj_script(f"{repository_path}\\WMark.vcxproj",
-                        old_proj_name, new_proj_name, uuid4key)
-    wmarksln_script(f"{repository_path}\\WMark.sln",
-                    old_proj_name, new_proj_name, uuid4key)
-    # WmarkPLC
-    cplcdevice_script(
-        f"{repository_path}\\WMarkPlc\\CPlcDevice.h", old_proj_name, new_proj_name)
-    ctabplcviewclasslist_script(
-        f"{repository_path}\\WMarkPlc\\CTabPlcViewClassList.cpp", old_proj_name, new_proj_name)
-    # WMarlPLCLfiXXXProj
-    wmarkplclfixxxvcxproj_script(
-        f'{repository_path}\\WMarkPlc{new_proj_name}\\WMarkPlc{new_proj_name}.vcxproj', uuid4key)
-
-
-# run("LFI174", "LFI176", repository_path)
-# wmarkplclfixxxvcxproj_script(
-#     'C:\\medicomtfs2018\\WMark2020\\mark\\WMarkPlcLFI176\\WMarkPlcLFI176.vcxproj', uuid4key)
+    try:
+        create_new_folder_project(
+            Path(f"{repository_path}\\WmarkPlc{old_proj_name}"), f"WMarkPlc{new_proj_name}", old_proj_name, new_proj_name,text_log)
+        # HMI
+        wmarkrc_script(f"{repository_path}\\WMark.rc",
+                    old_proj_name, new_proj_name,text_log)
+        resourceh_script(f"{repository_path}\\resource.h",
+                        old_proj_name, new_proj_name,text_log)
+        # WAMRK REFERENCES
+        wmarkvcxproj_script(f"{repository_path}\\WMark.vcxproj",
+                            old_proj_name, new_proj_name, uuid4key,text_log)
+        wmarksln_script(f"{repository_path}\\WMark.sln",
+                        old_proj_name, new_proj_name, uuid4key,text_log)
+        # WmarkPLC
+        cplcdevice_script(
+            f"{repository_path}\\WMarkPlc\\CPlcDevice.h", old_proj_name, new_proj_name,text_log)
+        ctabplcviewclasslist_script(
+            f"{repository_path}\\WMarkPlc\\CTabPlcViewClassList.cpp", old_proj_name, new_proj_name,text_log)
+        # WMarlPLCLfiXXXProj
+        wmarkplclfixxxvcxproj_script(
+            f'{repository_path}\\WMarkPlc{new_proj_name}\\WMarkPlc{new_proj_name}.vcxproj', new_proj_name, uuid4key, text_log)
+    except Exception as e:
+        text_log.insert(INSERT,f'[{datetime.now()}] {e}\n')
+        return

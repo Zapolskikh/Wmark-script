@@ -1,3 +1,6 @@
+from tkinter import INSERT
+from datetime import datetime
+
 def find_index_dialog(wmarkrc_path: str, source: str):
     with open(wmarkrc_path, 'r', encoding='utf8') as txt_file:
         a = txt_file.readlines()
@@ -11,7 +14,6 @@ def find_index_dialog(wmarkrc_path: str, source: str):
                 index_end = i
                 break
     return index_start, index_end
-
 
 def find_index_layout(wmarkrc_path: str, source: str):
     with open(wmarkrc_path, 'r', encoding='utf8') as txt_file:
@@ -27,7 +29,6 @@ def find_index_layout(wmarkrc_path: str, source: str):
                 break
     return index_start, index_end
 
-
 def find_index_dialogEX(wmarkrc_path: str, source: str):
     with open(wmarkrc_path, 'r', encoding='utf8') as txt_file:
         a = txt_file.readlines()
@@ -42,8 +43,8 @@ def find_index_dialogEX(wmarkrc_path: str, source: str):
                 break
     return index_start, index_end
 
-
-def wmarkrc_script(wmarkrc_path, source: str, destination: str):
+def wmarkrc_script(wmarkrc_path, source: str, destination: str,text_log):
+    text_log.insert(INSERT,f'[{datetime.now()}] Create new {source} screen\n')
     with open(wmarkrc_path, 'r', encoding='utf8') as txt_file:
         a = txt_file.readlines()
 
@@ -68,6 +69,3 @@ def wmarkrc_script(wmarkrc_path, source: str, destination: str):
 
     with open(wmarkrc_path, 'w', encoding='utf8') as txt_file:
         txt_file.writelines(a)
-
-
-# wmarkrc_script('D:\\mark\\WMark.rc', 'LFI174', 'LFI176')
